@@ -6,8 +6,16 @@ import 'package:noktonokto/utils/constants.dart';
 import 'package:http/http.dart' as http;
 
 class UserService {
-    static const String USER_URL = "$BACKEND_BASE_URL/user";
- 
+  static UserService? instance = null;
+  static UserService getInstance() {
+    instance ??= UserService._();
+    return instance!;
+  }
+
+  UserService._() {}
+
+  static const String USER_URL = "$BACKEND_BASE_URL/user";
+
   String? token;
 
   Future<void> login(String username, String password) async {
@@ -15,32 +23,45 @@ class UserService {
       'username': username,
       'password': password,
     };
-    final headers = {'Content-Type': 'application/json',
-      'Accept': 'application/json',};
+    final headers = {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+    };
 
-    final response = await http.post(Uri.parse("$USER_URL/login"), body: jsonEncode(body), headers: headers);
+    final response =
+        await http.post(Uri.parse("$USER_URL/login"), body: jsonEncode(body), headers: headers);
 
     token = jsonDecode(response.body).cast<Map<String, dynamic>>()['token'];
   }
 
-   Future<User?> getUser() async {
-    if (getToken() == null) {
-      throw const HttpException("Unauthorized");
-    }
-    final headers = {'Content-Type': 'application/json',
-      'Accept': 'application/json',
-      'Authorization': 'Bearer $token',};
+  Future<User?> getUser() async {
+    // if (getToken() == null) {
+    //   throw const HttpException("Unauthorized");
+    // }
+    // final headers = {
+    //   'Content-Type': 'application/json',
+    //   'Accept': 'application/json',
+    //   'Authorization': 'Bearer $token',
+    // };
 
-    final response = await http.get(Uri.parse("$USER_URL"),  headers: headers);
+    // final response = await http.get(Uri.parse(USER_URL), headers: headers);
 
+    return User(1, 'email', 'user');
   }
 
   String? getToken() {
     return token;
   }
 
-  void logout() {
-    user = null;
-    token = null;
+  Future<void> logout() async {
+    final body = {
+      'token': token ?? '',
+    };
+    final headers = {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+    };
+
+    await http.post(Uri.parse("$USER_URL/logout"), body: jsonEncode(body), headers: headers);
   }
 }

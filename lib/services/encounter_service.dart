@@ -16,7 +16,9 @@ class EncounterService {
 
   static const String ENCOUNTER_URL = "$BACKEND_BASE_URL/encounter";
 
-  // Encounter? getSightingById(int id) {}
+  Encounter? getSightingById(int id) {
+    return Encounter(id, 5, 'cat', 'small wild cat', 51.99074828576804, 21.234140746236903, ['https://viosna.pl/wp-content/uploads/10102009855-255x300.png', 'https://s3.eu-central-1.amazonaws.com/cdn.koty.pl/baby_cat_png_12_1_0e0fc56629.png'], DateTime.now());
+  }
 
   // List<Encounter> getEncountersByAuthor(int authorId) {}
 

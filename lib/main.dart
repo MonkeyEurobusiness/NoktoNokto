@@ -39,7 +39,7 @@ class MyApp extends StatelessWidget {
       ),
       // home: const MyHomePage(title: 'Flutter Demo Home Page'),
       // home: MapWidget(initialPosition: LatLng(52.2297, 21.0122),),
-      home: CameraWidget(),
+      home: LoginPage(),
     );
   }
 }

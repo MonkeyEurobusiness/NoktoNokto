@@ -35,6 +35,32 @@ class _CameraWidgetState extends State<CameraWidget> {
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
           return Scaffold(
+            floatingActionButton: FloatingActionButton(
+              child: const Icon(Icons.camera),
+              onPressed: () async {
+              bool wasFlashOn = _controller.value.flashMode == FlashMode.torch;
+
+              if (!wasFlashOn) {
+                await _controller.setFlashMode(FlashMode.off);
+              }
+              XFile file = await _controller.takePicture();
+              await _controller.setFlashMode(FlashMode.off);
+              setState(() {
+                _flashState = false;
+              });
+
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => DisplayPictureScreen(
+                    imagePath: file.path,
+                    aspectRatio: _controller.value.aspectRatio,
+                  ),
+                ),
+              );
+            },
+
+            ),
             body: Column(
               children: <Widget>[
                 Center(
@@ -45,32 +71,6 @@ class _CameraWidgetState extends State<CameraWidget> {
                       child: CameraPreview(_controller),
                     ),
                   ),
-                ),
-                IconButton(
-                  iconSize: 40,
-                  icon: Icon(Icons.camera),
-                  onPressed: () async {
-                    bool wasFlashOn = _controller.value.flashMode == FlashMode.torch;
-
-                    if (!wasFlashOn) {
-                      await _controller.setFlashMode(FlashMode.off);
-                    }
-                    XFile file = await _controller.takePicture();
-                    await _controller.setFlashMode(FlashMode.off);
-                    setState(() {
-                      _flashState = false;
-                    });
-
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => DisplayPictureScreen(
-                          imagePath: file.path,
-                          aspectRatio: _controller.value.aspectRatio,
-                        ),
-                      ),
-                    );
-                  },
                 ),
 
                 Switch(

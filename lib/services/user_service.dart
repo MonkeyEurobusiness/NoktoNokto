@@ -34,6 +34,7 @@ class UserService {
     token = jsonDecode(response.body)['token'];
   }
 
+
   Future<void> register(String username, String email, String password) async {
     final body = {
       'username': username,
@@ -63,7 +64,9 @@ class UserService {
 
     // final response = await http.get(Uri.parse(USER_URL), headers: headers);
 
+
     return User(1, 'email', 'user', 'sad');
+
   }
 
   String? getToken() {

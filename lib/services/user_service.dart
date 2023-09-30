@@ -40,7 +40,7 @@ class UserService {
   }
 
   void logout() {
-    user = null;
+    //user = null;
     token = null;
   }
 }

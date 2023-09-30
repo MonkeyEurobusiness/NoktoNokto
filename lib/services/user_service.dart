@@ -31,7 +31,25 @@ class UserService {
     final response =
         await http.post(Uri.parse("$USER_URL/login"), body: jsonEncode(body), headers: headers);
 
-    token = jsonDecode(response.body).cast<Map<String, dynamic>>()['token'];
+    token = jsonDecode(response.body)['token'];
+  }
+
+
+  Future<void> register(String username, String email, String password) async {
+    final body = {
+      'username': username,
+      // 'email': email,
+      'password': password,
+    };
+    final headers = {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+    };
+
+    final response =
+        await http.post(Uri.parse("$USER_URL/register"), body: jsonEncode(body), headers: headers);
+
+    token = jsonDecode(response.body)['token'];
   }
 
   Future<User?> getUser() async {
@@ -46,7 +64,9 @@ class UserService {
 
     // final response = await http.get(Uri.parse(USER_URL), headers: headers);
 
-    return User(1, 'email', 'user');
+
+    return User(1, 'email', 'user', 'sad');
+
   }
 
   String? getToken() {

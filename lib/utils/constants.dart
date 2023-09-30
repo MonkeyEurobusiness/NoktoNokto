@@ -1,1 +1,1 @@
-const String BACKEND_BASE_URL = "https://3ece850b-8473-4499-9330-41eac61d53dd.mock.pstmn.io";
+const String BACKEND_BASE_URL = "http://188.68.247.32:8000";

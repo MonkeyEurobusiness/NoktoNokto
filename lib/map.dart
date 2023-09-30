@@ -17,10 +17,18 @@ class _MapWidgetState extends State<MapWidget> {
     Marker(
       markerId: MarkerId('1'),
       position: LatLng(52.2296756, 21.0122287), // przykład współrzędnych
+      infoWindow: InfoWindow(
+        title: "Pierwszy marker",
+        snippet: "Opis pierwszego markera",
+      ),
     ),
     Marker(
       markerId: MarkerId('2'),
       position: LatLng(51.109, 17.032), // przykład współrzędnych
+      infoWindow: InfoWindow(
+        title: "Drugi marker",
+        snippet: "Opis drugiego markera",
+      ),
     ),
   ];
 
@@ -28,6 +36,10 @@ class _MapWidgetState extends State<MapWidget> {
     final marker = Marker(
       markerId: MarkerId('user'), // id dla markera użytkownika
       position: position,
+      infoWindow: InfoWindow(
+        title: "Wybrany marker",
+        snippet: "Opis wybranego markera",
+      ),
     );
 
     setState(() {

@@ -11,6 +11,7 @@ class _CameraPageState extends State<CameraPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.tertiary,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

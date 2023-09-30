@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
             primary: Color(0xFFD4A373),
             onPrimary: Colors.black,
             brightness: Brightness.light,
-            secondary: Color(0xFFCCD5AE),
+            secondary: Color(0xFFD4A373),
             onSecondary: Colors.black,
             tertiary: Color(0xFFFEFAE0),
             onTertiary: Colors.black,

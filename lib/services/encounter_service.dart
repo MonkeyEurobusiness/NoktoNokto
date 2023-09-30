@@ -3,9 +3,10 @@ import 'dart:io';
 import 'package:cross_file/cross_file.dart';
 import 'package:noktonokto/models/encounter.dart';
 import 'package:http/http.dart' as http;
+import 'package:noktonokto/utils/constants.dart';
 
 class EncounterService {
-  static const String CREATE_ENCOUNTER_URL = 'https://3ece850b-8473-4499-9330-41eac61d53dd.mock.pstmn.io/encounter';
+  static const String ENCOUNTER_URL = "$BACKEND_BASE_URL/encounter";
 
   // Encounter? getSightingById(int id) {}
 
@@ -18,7 +19,7 @@ class EncounterService {
       double latitude, double longitude, List<XFile> images) async {
 
     final request =
-        http.MultipartRequest("POST", Uri.parse(CREATE_ENCOUNTER_URL));
+        http.MultipartRequest("POST", Uri.parse(ENCOUNTER_URL));
     for (XFile file in images) {
       request.files.add(http.MultipartFile.fromBytes(
           "picture", File(file.path).readAsBytesSync(),

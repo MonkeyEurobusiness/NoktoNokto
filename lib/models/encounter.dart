@@ -10,4 +10,18 @@ class Encounter {
 
   Encounter(this.id, this.authorId, this.animal, this.description, this.latitude,
       this.longitude, this.imageUrls, this.createdAt);
+
+      
+  factory Encounter.fromJson(Map<String, dynamic> json) {
+    return Encounter(
+      json['id'] as int,
+      json['authorId'] as int,
+      json['animal'] as String,
+      json['description'] as String,
+      json['latitude'] as double,
+      json['longitude'] as double,
+      json['imageUrls'] as List<String>,
+      json["createdAt"] as DateTime,
+    );
+  }
 }

@@ -11,17 +11,33 @@ class MapWidget extends StatefulWidget {
 }
 
 class _MapWidgetState extends State<MapWidget> {
-  Set<Marker> _markers = {};
+  Marker? _userSelectedMarker;
+
+  List<Marker> _serverMarkers = [
+    Marker(
+      markerId: MarkerId('1'),
+      position: LatLng(52.2296756, 21.0122287), // przykład współrzędnych
+    ),
+    Marker(
+      markerId: MarkerId('2'),
+      position: LatLng(51.109, 17.032), // przykład współrzędnych
+    ),
+  ];
 
   void _onMapLongPress(LatLng position) {
     final marker = Marker(
-      markerId: MarkerId(position.toString()),
+      markerId: MarkerId('user'), // id dla markera użytkownika
       position: position,
     );
 
     setState(() {
-      _markers.add(marker);
+      _userSelectedMarker = marker; // Ustawienie markera użytkownika.
     });
+  }
+
+  // Funkcja zwracająca pozycję wybraną przez użytkownika.
+  LatLng? getSelectedPosition() {
+    return _userSelectedMarker?.position;
   }
 
   @override
@@ -34,7 +50,7 @@ class _MapWidgetState extends State<MapWidget> {
       myLocationEnabled: true,
       myLocationButtonEnabled: true,
       onLongPress: _onMapLongPress,
-      markers: _markers,
+      markers: {..._serverMarkers, if (_userSelectedMarker != null) _userSelectedMarker!},
     );
   }
 }

@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
+import 'package:noktonokto/services/encounter_service.dart';
 
 import '../pages/create_sighting.dart';
 

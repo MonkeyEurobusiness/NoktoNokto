@@ -78,6 +78,26 @@ class _CameraWidgetState extends State<CameraWidget> {
 
                     print(_locationData.latitude); // drukuje szerokość geograficzną
                     print(_locationData.longitude); // drukuje długość geograficzną
+                    bool wasFlashOn = _controller.value.flashMode == FlashMode.torch;
+
+                    if (!wasFlashOn) {
+                      await _controller.setFlashMode(FlashMode.off);
+                    }
+                    XFile file = await _controller.takePicture();
+                    await _controller.setFlashMode(FlashMode.off);
+                    setState(() {
+                      _flashState = false;
+                    });
+
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => DisplayPictureScreen(
+                          imagePath: file.path,
+                          aspectRatio: _controller.value.aspectRatio,
+                        ),
+                      ),
+                    );
                   },
                 ),
 

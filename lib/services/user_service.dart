@@ -31,6 +31,9 @@ class UserService {
     final response =
         await http.post(Uri.parse("$USER_URL/login"), body: jsonEncode(body), headers: headers);
 
+    if (response.statusCode != 200) {
+      throw Exception('${response.statusCode}: ${response.reasonPhrase ?? ""}');
+    }
     token = jsonDecode(response.body)['token'];
   }
 
@@ -47,6 +50,9 @@ class UserService {
 
     final response =
         await http.post(Uri.parse("$USER_URL/register"), body: jsonEncode(body), headers: headers);
+    if (response.statusCode != 200) {
+      throw Exception('${response.statusCode}: ${response.reasonPhrase ?? ""}');
+    }
 
     token = jsonDecode(response.body)['token'];
   }

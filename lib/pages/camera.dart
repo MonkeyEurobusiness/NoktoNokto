@@ -36,7 +36,10 @@ class _CameraWidgetState extends State<CameraWidget> {
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
           return Scaffold(
+            backgroundColor: Theme.of(context).colorScheme.primary,
+            floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
             floatingActionButton: FloatingActionButton(
+              backgroundColor: Theme.of(context).colorScheme.secondary,
               child: const Icon(Icons.camera),
               onPressed: () async {
               bool wasFlashOn = _controller.value.flashMode == FlashMode.torch;
@@ -62,30 +65,40 @@ class _CameraWidgetState extends State<CameraWidget> {
             },
 
             ),
-            body: Column(
-              children: <Widget>[
-                Center(
-                  child: Container(
-                    height: MediaQuery.of(context).size.height * 0.75,
-                    child: AspectRatio(
-                      aspectRatio: _controller.value.aspectRatio,
-                      child: CameraPreview(_controller),
-                    ),
+            body: Stack(
+                children: <Widget>[
+                Container(
+                  height: MediaQuery.of(context).size.height * 0.9,
+                  child: AspectRatio(
+                    aspectRatio: _controller.value.aspectRatio,
+                    child: CameraPreview(_controller),
                   ),
                 ),
-
-                Switch(
-                  value: _flashState,
-                  onChanged: (value) {
-                    setState(() {
-                      _flashState = value;
-                      _controller.setFlashMode(_flashState ? FlashMode.torch : FlashMode.off);
-                    });
-                  },
+                Positioned(
+                  top: 20,
+                  left: 0,
+                  child: Container(
+                    padding: EdgeInsetsDirectional.fromSTEB(10, 5, 10, 5),
+                    child: Row(
+                      children: [
+                        Icon(Icons.flash_on, color: Theme.of(context).colorScheme.secondary, size: 40,),
+                        Switch(
+                          inactiveTrackColor: Theme.of(context).colorScheme.tertiary,
+                          value: _flashState,
+                          onChanged: (value) {
+                            setState(() {
+                              _flashState = value;
+                              _controller.setFlashMode(_flashState ? FlashMode.torch : FlashMode.off);
+                            });
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
                 )
               ],
-            ),
-          );
+              )
+            );
         } else {
           return Center(child: CircularProgressIndicator());
         }

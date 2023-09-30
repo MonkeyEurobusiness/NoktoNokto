@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
+import 'package:location/location.dart';
 
 class CameraWidget extends StatefulWidget {
   @override
@@ -50,26 +51,33 @@ class _CameraWidgetState extends State<CameraWidget> {
                   iconSize: 40,
                   icon: Icon(Icons.camera),
                   onPressed: () async {
-                    bool wasFlashOn = _controller.value.flashMode == FlashMode.torch;
+                    Location location = new Location();
+                    bool _serviceEnabled;
+                    PermissionStatus _permissionGranted;
+                    LocationData _locationData;
 
-                    if (!wasFlashOn) {
-                      await _controller.setFlashMode(FlashMode.off);
+                    _serviceEnabled = await location.serviceEnabled();
+                    if (!_serviceEnabled) {
+                      _serviceEnabled = await location.requestService();
+                      if (!_serviceEnabled) {
+                        return;
+                      }
                     }
-                    XFile file = await _controller.takePicture();
-                    await _controller.setFlashMode(FlashMode.off);
-                    setState(() {
-                      _flashState = false;
-                    });
 
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => DisplayPictureScreen(
-                          imagePath: file.path,
-                          aspectRatio: _controller.value.aspectRatio,
-                        ),
-                      ),
-                    );
+                    _permissionGranted = await location.hasPermission();
+                    if (_permissionGranted == PermissionStatus.denied) {
+                      _permissionGranted = await location.requestPermission();
+                      if (_permissionGranted != PermissionStatus.granted) {
+                        return;
+                      }
+                    }
+
+                    _locationData = await location.getLocation();
+
+                    // ... reszta twojego kodu
+
+                    print(_locationData.latitude); // drukuje szerokość geograficzną
+                    print(_locationData.longitude); // drukuje długość geograficzną
                   },
                 ),
 

@@ -3,6 +3,8 @@ import 'dart:io';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 
+import '../pages/create_sighting.dart';
+
 class CameraWidget extends StatefulWidget {
   @override
   _CameraWidgetState createState() => _CameraWidgetState();
@@ -61,6 +63,7 @@ class _CameraWidgetState extends State<CameraWidget> {
                   ),
                 ),
               );
+
             },
 
             ),
@@ -111,31 +114,5 @@ class _CameraWidgetState extends State<CameraWidget> {
   void dispose() {
     _controller.dispose();
     super.dispose();
-  }
-}
-
-class DisplayPictureScreen extends StatelessWidget {
-  final String imagePath;
-  final double aspectRatio;
-
-  const DisplayPictureScreen({Key? key, required this.imagePath, required this.aspectRatio})
-      : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('Wyświetl zdjęcie')),
-      body: Container(
-        child: Center(
-          child: AspectRatio(
-            aspectRatio: aspectRatio,
-            child: Image.file(
-              File(imagePath),
-              fit: BoxFit.contain, // lub BoxFit.fitHeight
-            )
-          ),
-        ),
-      ),
-    );
   }
 }

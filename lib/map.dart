@@ -1,9 +1,8 @@
 import 'dart:ui' as ui;
-import 'package:flutter/services.dart'; // <-- Dodaj to
+import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-// Ta funkcja zamienia obrazek na bajty.
 Future<Uint8List> getBytesFromAsset(String path, int width) async {
   ByteData data = await rootBundle.load(path);
   ui.Codec codec = await ui.instantiateImageCodec(data.buffer.asUint8List(), targetWidth: width);
@@ -32,7 +31,6 @@ class _MapWidgetState extends State<MapWidget> {
     _loadMarkers();
   }
 
-  // Załaduj markery przy inicjalizacji.
   Future<void> _loadMarkers() async {
     final Uint8List markerIcon = await getBytesFromAsset('assets/Main.png', 100);
 
@@ -40,7 +38,7 @@ class _MapWidgetState extends State<MapWidget> {
       Marker(
         markerId: MarkerId('1'),
         position: LatLng(52.2296756, 21.0122287), // przykład współrzędnych
-        icon: BitmapDescriptor.fromBytes(markerIcon),
+        icon: await _getMarkerImage('cat'),
         infoWindow: InfoWindow(
           title: "Pierwszy marker",
           snippet: "Opis pierwszego markera",
@@ -49,7 +47,7 @@ class _MapWidgetState extends State<MapWidget> {
       Marker(
         markerId: MarkerId('2'),
         position: LatLng(51.109, 17.032), // przykład współrzędnych
-        icon: BitmapDescriptor.fromBytes(markerIcon),
+        icon: await _getMarkerImage(''),
         infoWindow: InfoWindow(
           title: "Drugi marker",
           snippet: "Opis drugiego markera",
@@ -60,13 +58,19 @@ class _MapWidgetState extends State<MapWidget> {
     setState(() {});
   }
 
-  void _onMapLongPress(LatLng position) async {
-    final Uint8List markerIcon = await getBytesFromAsset('assets/Main.png', 100);
+  Future<BitmapDescriptor> _getMarkerImage(String name) async {
+    if (name =='cat'){
+      return  BitmapDescriptor.fromBytes(await getBytesFromAsset('assets/Cat_pin.png', 100));
+    }
+    return BitmapDescriptor.fromBytes(await getBytesFromAsset('assets/Main.png', 100));
+  }
 
+
+  void _onMapLongPress(LatLng position) async {
     final marker = Marker(
-      markerId: MarkerId('user'), // id dla markera użytkownika
+      markerId: MarkerId('user'),
       position: position,
-      icon: BitmapDescriptor.fromBytes(markerIcon),
+      icon: await _getMarkerImage(''),
       infoWindow: InfoWindow(
         title: "Wybrany marker",
         snippet: "Opis wybranego markera",
@@ -74,7 +78,7 @@ class _MapWidgetState extends State<MapWidget> {
     );
 
     setState(() {
-      _userSelectedMarker = marker; // Ustawienie markera użytkownika.
+      _userSelectedMarker = marker;
     });
   }
 

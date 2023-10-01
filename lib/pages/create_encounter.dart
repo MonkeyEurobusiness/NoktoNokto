@@ -1,7 +1,10 @@
 import 'dart:io';
 
+import 'package:cross_file/cross_file.dart';
 import 'package:flutter/material.dart';
 import 'package:noktonokto/data/categories.dart';
+import 'package:noktonokto/services/encounter_service.dart';
+import 'package:noktonokto/services/location_service.dart';
 
 import 'menu.dart';
 
@@ -16,10 +19,26 @@ class DisplayPictureScreen extends StatefulWidget {
   _DisplayPictureScreenState createState() => _DisplayPictureScreenState();
 }
 
+
 class _DisplayPictureScreenState extends State<DisplayPictureScreen>  {
   String dropdownValue = categories.first;
   bool isDangerous = false;
   bool isAbuse = false;
+  final descriptionController = TextEditingController();
+
+Future<void> uploadEncounter() async {
+   EncounterService encounterService = EncounterService.getInstance();
+   LocationService locationService = LocationService.getInstance();
+   var latlng = await locationService.getLocation();
+   await encounterService.createEncounter(dropdownValue, descriptionController.text, latlng.latitude, latlng.longitude, isDangerous, isAbuse, XFile(widget.imagePath));
+   print(dropdownValue + " " + descriptionController.text + " " + "${latlng.latitude} " + "${latlng.longitude}");
+}
+
+@override
+  void dispose() {
+    descriptionController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -86,10 +105,11 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen>  {
                 Text("Description", style: Theme.of(context).textTheme.labelLarge),
                 Padding(padding: EdgeInsets.all(12)),
                 Container(
-                  width: 240, child: const TextField(
+                  width: 240, child: TextField(
                   keyboardType: TextInputType.multiline,
                   minLines: 5,
                   maxLines: 5,
+                  controller: descriptionController,
                 )),
                 Spacer()
               ],
@@ -107,6 +127,17 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen>  {
                     child: FilledButton(
                       style: TextButton.styleFrom(foregroundColor: Theme.of(context).colorScheme.secondary),
                       onPressed: () async {
+                        try {
+                          await uploadEncounter();
+                        } catch (e) {
+                          print(e);
+                          const snackBar = SnackBar(
+                            content: Text('Something went wrong. Try again!'),
+                          );
+
+                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                          return;
+                        }
                         print('login');
                         await Future.delayed(const Duration(milliseconds: 500));
                         Navigator.push(context,MaterialPageRoute(builder: (context) => const MenuPage()),);

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:noktonokto/map.dart';
+import 'package:noktonokto/pages/map.dart';
 import 'package:noktonokto/pages/chat.dart';
 import 'package:noktonokto/pages/login.dart';
 import 'package:noktonokto/pages/camera.dart';

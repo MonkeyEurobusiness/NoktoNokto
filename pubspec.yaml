@@ -42,6 +42,7 @@ dependencies:
   path_provider: ^2.1.1
   cross_file: ^0.3.3+5
   http: ^1.1.0
+  carousel_slider: ^4.2.1
 
 dev_dependencies:
   flutter_test:

@@ -150,7 +150,7 @@ Future<String?> askAI() async
                   Spacer(),
                   Padding(padding: EdgeInsets.all(24)),
                   SizedBox(
-                    width: 300,
+                    width: 250,
                     height: 50,
                     child: FilledButton(
                       style: TextButton.styleFrom(foregroundColor: Theme.of(context).colorScheme.secondary),

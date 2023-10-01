@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:noktonokto/pages/login.dart';
 import 'package:noktonokto/pages/menu.dart';
 import 'package:noktonokto/services/user_service.dart';
 
@@ -64,7 +65,7 @@ class _RegisterPageState extends State<RegisterPage> {
       await Future.delayed(const Duration(milliseconds: 500));
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => const MenuPage()),
+        MaterialPageRoute(builder: (context) => const LoginPage()),
       );
     } else {
                             const snackBar = SnackBar(
@@ -80,7 +81,6 @@ class _RegisterPageState extends State<RegisterPage> {
     _controllerPassword.dispose();
     _controllerUsername.dispose();
     _controllerEmail.dispose();
-    _controllerPassword.dispose();
     _controllerPasswordPasswordRepeat.dispose();
 
     super.dispose();
@@ -96,12 +96,13 @@ class _RegisterPageState extends State<RegisterPage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              const TextField(
+               TextField(
                 obscureText: false,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
                   labelText: 'Login',
                 ),
+                controller: _controllerUsername,
               ),
               const Padding(padding: EdgeInsets.all(12)),
               const TextField(

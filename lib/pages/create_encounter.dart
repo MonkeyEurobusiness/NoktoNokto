@@ -18,6 +18,8 @@ class DisplayPictureScreen extends StatefulWidget {
 
 class _DisplayPictureScreenState extends State<DisplayPictureScreen>  {
   String dropdownValue = categories.first;
+  bool isDangerous = false;
+  bool isAbuse = false;
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +28,6 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen>  {
       appBar: AppBar(title: Text("Captured photo"), ),
       body: ListView(
           children: [
-
             Spacer(),
             Container(
               height: 300,
@@ -63,13 +64,32 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen>  {
             Row(
               children: [
                 Padding(padding: EdgeInsets.all(12)),
+                Text("Potentially dangerous", style: Theme.of(context).textTheme.labelLarge),
+                Checkbox(value: isDangerous, onChanged: (bool? value){
+                  setState(() {
+                    isDangerous = value!;
+                  });
+                }),
+                Padding(padding: EdgeInsets.all(6)),
+                Text("Report animal abuse", style: Theme.of(context).textTheme.labelLarge),
+                Checkbox(value: isAbuse, onChanged: (bool? value){
+                  setState(() {
+                    isAbuse = value!;
+                  });
+                }),
+                Spacer()
+              ],
+            ),
+            Row(
+              children: [
+                Padding(padding: EdgeInsets.all(12)),
                 Text("Description", style: Theme.of(context).textTheme.labelLarge),
                 Padding(padding: EdgeInsets.all(12)),
                 Container(
-                  width: 240, child: TextField(
+                  width: 240, child: const TextField(
                   keyboardType: TextInputType.multiline,
-                  minLines: 7,
-                  maxLines: 7,
+                  minLines: 5,
+                  maxLines: 5,
                 )),
                 Spacer()
               ],

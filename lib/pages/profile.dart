@@ -34,6 +34,9 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                   const Spacer()
                 ],
               ),
+            Spacer(),
+            SizedBox(child: FilledButton(onPressed: (){}, child: Text("Log out", style: Theme.of(context).textTheme.titleMedium,)), width: 200, height: 50),
+            Padding(padding: EdgeInsets.all(20))
           ],
         ),
       )

@@ -40,9 +40,11 @@ dependencies:
   google_maps_flutter_web: ^0.5.4+2
   camera: ^0.10.5+5
   path_provider: ^2.1.1
+  location: ^5.0.3
   cross_file: ^0.3.3+5
   http: ^1.1.0
   carousel_slider: ^4.2.1
+  flutter_launcher_icons: ^0.13.1
 
 dev_dependencies:
   flutter_test:
@@ -96,3 +98,8 @@ flutter:
   # see https://flutter.dev/custom-fonts/#from-packages
 flutter_intl:
   enabled: true
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/icon/logo.png"

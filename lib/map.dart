@@ -2,6 +2,7 @@ import 'dart:ui' as ui;
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:noktonokto/data/pin.dart';
 import 'package:noktonokto/services/encounter_service.dart';
 
 import 'models/encounter.dart';
@@ -53,10 +54,10 @@ class _MapWidgetState extends State<MapWidget> {
         markerId: markerId,
         position: LatLng(encounter.latitude, encounter.longitude),
         icon: await _getMarkerImage(encounter.animal),
-        infoWindow: InfoWindow(
+        /*infoWindow: InfoWindow(
           title: encounter.animal,
           snippet: encounter.description,
-        ),
+        ),*/
         onTap: () => _onMarkerTapped(encounter), // Add onTap here
       );
 
@@ -72,12 +73,39 @@ class _MapWidgetState extends State<MapWidget> {
       context: context,
       builder: (BuildContext context) {
         return Container(
-          height: 250,
-          child: ListView.builder(
-            itemCount: encounter.imageUrls.length,
-            itemBuilder: (context, index) {
-              return Image.network(encounter.imageUrls[index]);
-            },
+          height: 400,
+          color: Theme.of(context).colorScheme.tertiary,
+          child: ListView(
+            children: [
+              Padding(padding: EdgeInsets.all(12)),
+              Center(child: Text(encounter.animal, style: Theme.of(context).textTheme.headlineLarge)),
+              Padding(padding: EdgeInsets.all(12)),
+              ListView.builder(
+                shrinkWrap: true,
+                physics: ClampingScrollPhysics(),
+                itemCount: encounter.imageUrls.length,
+                itemBuilder: (context, index) {
+                  return Center(child: Image.network(encounter.imageUrls[index]));
+                },
+              ),
+              Padding(padding: EdgeInsets.all(12)),
+              Row(
+                children: [
+                  Padding(padding: EdgeInsets.all(12)),
+                  RichText(
+                      text: TextSpan(
+                    style: Theme.of(context).textTheme.titleMedium,
+                    children: [
+                      const TextSpan(text: "Description: ", style: TextStyle(fontWeight: FontWeight.bold)),
+                      TextSpan(text: encounter.description)
+                    ]
+                  )
+                  ),
+                  Padding(padding: EdgeInsets.all(12)),
+                ],
+              ),
+              Padding(padding: EdgeInsets.all(12))
+            ],
           ),
         );
       },
@@ -85,12 +113,8 @@ class _MapWidgetState extends State<MapWidget> {
   }
 
   Future<BitmapDescriptor> _getMarkerImage(String name) async {
-    if (name == 'cat') {
       return BitmapDescriptor.fromBytes(
-          await getBytesFromAsset('assets/Cat_pin.png', 100));
-    }
-    return BitmapDescriptor.fromBytes(
-        await getBytesFromAsset('assets/Main.png', 100));
+          await getBytesFromAsset(pinAssets[name] ?? pinAssets["Other"]! , 100));
   }
 
   void _onMapLongPress(LatLng position) async {

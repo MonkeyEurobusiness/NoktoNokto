@@ -39,23 +39,21 @@ class UserService {
 
 
   Future<void> register(String username, String email, String password) async {
+    print(username + " " + password);
     final body = {
       'username': username,
-      // 'email': email,
       'password': password,
     };
     final headers = {
       'Content-Type': 'application/json',
       'Accept': 'application/json',
     };
-
+    print(body);
     final response =
         await http.post(Uri.parse("$USER_URL/register"), body: jsonEncode(body), headers: headers);
     if (response.statusCode != 200) {
       throw Exception('${response.statusCode}: ${response.reasonPhrase ?? ""}');
     }
-
-    token = jsonDecode(response.body)['token'];
   }
 
   Future<User?> getUser() async {

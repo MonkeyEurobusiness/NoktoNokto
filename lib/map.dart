@@ -70,6 +70,8 @@ class _MapWidgetState extends State<MapWidget> {
 
   void _onMarkerTapped(Encounter encounter) {
     showModalBottomSheet(
+      elevation: 5,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
       context: context,
       builder: (BuildContext context) {
         return Container(

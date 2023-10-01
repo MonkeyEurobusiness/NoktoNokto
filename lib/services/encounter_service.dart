@@ -7,9 +7,9 @@ import 'package:noktonokto/utils/constants.dart';
 
 List<Encounter> getMockEncounters() {
   return [
-    Encounter(1, 5, "Cat", "Small wild cat", 52, 21, ["https://upload.wikimedia.org/wikipedia/commons/3/33/Stray_cat_on_wall.jpg"], DateTime.now()),
-    Encounter(2, 5, "Cat", "Chonky specimen", 52.2, 20.8, ["https://www.firstforwomen.com/wp-content/uploads/sites/2/2019/10/photos-of-chonky-cats.jpg?w=1024"], DateTime.now()),
-    Encounter(3, 5, "Cat", "Has an orange collar", 52.1, 20.9, ["https://www.litter-robot.com/media/magefan_blog/2021/04/2021-Lifestyle-Tan-Collar.jpg"], DateTime.now())
+    Encounter(1, 5, "Cat", "Mały dziki kot", 52, 21, ["https://upload.wikimedia.org/wikipedia/commons/3/33/Stray_cat_on_wall.jpg"], DateTime.now()),
+    Encounter(2, 5, "Cat", "Leżał koło sklepu", 52.2, 20.8, ["https://www.firstforwomen.com/wp-content/uploads/sites/2/2019/10/photos-of-chonky-cats.jpg?w=1024"], DateTime.now()),
+    Encounter(3, 5, "Cat", "Miał założoną obroże", 52.1, 20.9, ["https://images.all-free-download.com/images/graphiclarge/cat_picture_elegant_garden_scene_6933450.jpg"], DateTime.now())
   ];
 }
 

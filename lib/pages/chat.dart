@@ -1,6 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:noktonokto/data/avatars.dart';
+import 'package:noktonokto/pages/mockChat.dart';
 import 'package:noktonokto/services/encounter_service.dart';
 
 
@@ -56,29 +57,40 @@ class _ChatWidgetState extends State<ChatWidget> {
               Padding(padding: EdgeInsets.all(6)),
               Text("Chats", style: Theme.of(context).textTheme.headlineSmall),
               Padding(padding: EdgeInsets.all(6)),
-              Card(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(30.0),
-                ),
-                child: SizedBox(
-                  height: 60,
-                  child: Row(
-                    children: [
-                      CircleAvatar(radius: 30, child: Image.asset(avatarAssets[0], height: 35,)),
-                      Spacer(),
-                      const Column(
-                        children: [
-                          Spacer(),
-                          Text("Dziekan65", textAlign: TextAlign.right, style: TextStyle(fontWeight: FontWeight.bold)),
-                          Padding(padding: EdgeInsets.all(2)),
-                          Text("Masz jakies warunki kurde ten", textAlign: TextAlign.left),
-                          Spacer()
-                        ],
-                      ),
-                      Spacer(),
-                    ],
+              InkWell(
+                onTap: () async {
+                  await Future.delayed(const Duration(milliseconds: 500));
+                  Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ChatMockWidget()
                   ),
-                )
+                );
+                  },
+                child: Card(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30.0),
+                  ),
+                  child: SizedBox(
+                    height: 60,
+                    child: Row(
+                      children: [
+                        CircleAvatar(radius: 30, child: Image.asset(avatarAssets[2], height: 35,)),
+                        Spacer(),
+                        const Column(
+                          children: [
+                            Spacer(),
+                            Text("jakubhulek21", textAlign: TextAlign.right, style: TextStyle(fontWeight: FontWeight.bold)),
+                            Padding(padding: EdgeInsets.all(2)),
+                            Text("Prosze o pilny kontakt", textAlign: TextAlign.left),
+                            Spacer()
+                          ],
+                        ),
+                        Spacer(),
+                      ],
+                    ),
+                  )
+                ),
               ),
               Padding(padding: EdgeInsets.all(6)),
               Card(
@@ -94,9 +106,9 @@ class _ChatWidgetState extends State<ChatWidget> {
                         const Column(
                           children: [
                             Spacer(),
-                            Text("Dziekan66", textAlign: TextAlign.right, style: TextStyle(fontWeight: FontWeight.bold)),
+                            Text("blazejryszard", textAlign: TextAlign.right, style: TextStyle(fontWeight: FontWeight.bold)),
                             Padding(padding: EdgeInsets.all(2)),
-                            Text("Masz jakies warunki kurde ten", textAlign: TextAlign.left),
+                            Text("Dziękuje za pomoc!!!", textAlign: TextAlign.left),
                             Spacer()
                           ],
                         ),
@@ -114,14 +126,14 @@ class _ChatWidgetState extends State<ChatWidget> {
                     height: 60,
                     child: Row(
                       children: [
-                        CircleAvatar(radius: 30, child: Image.asset(avatarAssets[2], height: 35,)),
+                        CircleAvatar(radius: 30, child: Image.asset(avatarAssets[4], height: 35,)),
                         Spacer(),
                         const Column(
                           children: [
                             Spacer(),
-                            Text("Dziekan67", textAlign: TextAlign.right, style: TextStyle(fontWeight: FontWeight.bold)),
+                            Text("soltyspavel", textAlign: TextAlign.right, style: TextStyle(fontWeight: FontWeight.bold)),
                             Padding(padding: EdgeInsets.all(2)),
-                            Text("Masz jakies warunki kurde ten", textAlign: TextAlign.left),
+                            Text("Do widzenia", textAlign: TextAlign.left),
                             Spacer()
                           ],
                         ),

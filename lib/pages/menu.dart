@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:noktonokto/map.dart';
+import 'package:noktonokto/pages/map.dart';
 import 'package:noktonokto/pages/chat.dart';
 import 'package:noktonokto/pages/login.dart';
 import 'package:noktonokto/pages/camera.dart';
@@ -54,7 +54,7 @@ class _MenuPageState extends State<MenuPage> {
           ),
         ],
       ),
-      body: <Widget>[CameraWidget(), MapWidget(initialPosition: LatLng(52.2297, 21.0122)), ChatWidget(), ProfileWidget()][selectedPageIndex],
+      body: <Widget>[CameraWidget(), MapWidget(initialPosition: LatLng(50.06779728116886, 19.99146720652527)), ChatWidget(), ProfileWidget()][selectedPageIndex],
     );
   }
 }

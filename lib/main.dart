@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:noktonokto/pages/camera.dart';
-import 'map.dart';
+import 'pages/map.dart';
 import 'package:noktonokto/pages/login.dart';
 import 'package:noktonokto/pages/menu.dart';
 
@@ -38,7 +38,7 @@ class MyApp extends StatelessWidget {
         appBarTheme: const AppBarTheme(color: Color(0xFFFAEDCD))
       ),
       // home: const MyHomePage(title: 'Flutter Demo Home Page'),
-      // home: MapWidget(initialPosition: LatLng(52.2297, 21.0122),),
+      // home: MapWidget(initialPosition: LatLng(50.06779728116886, 19.99146720652527),),
       home: LoginPage(),
     );
   }

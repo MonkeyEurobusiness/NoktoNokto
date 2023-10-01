@@ -4,6 +4,7 @@ import 'package:cross_file/cross_file.dart';
 import 'package:flutter/material.dart';
 import 'package:noktonokto/data/categories.dart';
 import 'package:noktonokto/services/encounter_service.dart';
+import 'package:noktonokto/services/location_service.dart';
 
 import 'menu.dart';
 
@@ -27,7 +28,10 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen>  {
 
 Future<void> uploadEncounter() async {
    EncounterService encounterService = EncounterService.getInstance();
-   await encounterService.createEncounter(dropdownValue, descriptionController.text, latitude, longitude, XFile(widget.imagePath));
+   LocationService locationService = LocationService.getInstance();
+   var latlng = await locationService.getLocation();
+   await encounterService.createEncounter(dropdownValue, descriptionController.text, latlng.latitude, latlng.longitude, isDangerous, isAbuse, XFile(widget.imagePath));
+   print(dropdownValue + " " + descriptionController.text + " " + "${latlng.latitude} " + "${latlng.longitude}");
 }
 
 @override

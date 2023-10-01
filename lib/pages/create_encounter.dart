@@ -25,6 +25,7 @@ class _DisplayPictureScreenState extends State<DisplayPictureScreen>  {
   bool isDangerous = false;
   bool isAbuse = false;
   final descriptionController = TextEditingController();
+  String aiResponse = 'Loading...';
 
 Future<void> uploadEncounter() async {
    EncounterService encounterService = EncounterService.getInstance();
@@ -34,6 +35,15 @@ Future<void> uploadEncounter() async {
    print(dropdownValue + " " + descriptionController.text + " " + "${latlng.latitude} " + "${latlng.longitude}");
 }
 
+Future<String?> askAI() async
+ {
+    try {
+      return EncounterService.getInstance().getAIResult(widget.imagePath);
+    } catch (e) {
+      print(e);
+      return 'Did not get an answer from AI';
+    }
+ }
 @override
   void dispose() {
     descriptionController.dispose();
@@ -80,6 +90,23 @@ Future<void> uploadEncounter() async {
               ],
             ),
             Padding(padding: EdgeInsets.all(12)),
+
+             Row(
+              children: [
+                Padding(padding: EdgeInsets.all(12)),
+                Text("AI reccomendation:", style: Theme.of(context).textTheme.labelLarge),
+                Padding(padding: EdgeInsets.all(12)),
+                FutureBuilder(future: askAI(), builder: (BuildContext context, AsyncSnapshot<String?> snapshot) {
+                  if(snapshot.hasData) {
+                    return  Text(snapshot.data!, style: Theme.of(context).textTheme.labelLarge);
+                  } else {
+                    return  Text('Waiting for AI response...', style: Theme.of(context).textTheme.labelLarge);
+                  }
+                }),
+
+              ],
+            ),
+            Padding(padding: EdgeInsets.all(12)),
             Row(
               children: [
                 Padding(padding: EdgeInsets.all(12)),
@@ -99,6 +126,7 @@ Future<void> uploadEncounter() async {
                 Spacer()
               ],
             ),
+           
             Row(
               children: [
                 Padding(padding: EdgeInsets.all(12)),

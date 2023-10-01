@@ -93,4 +93,24 @@ class EncounterService {
     }
 
   }
+
+  Future<String> getAIResult(String filepath) async {
+    String API_TOKEN = "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";
+    String API_URL = "https://api-inference.huggingface.co/models/AliGhiasvand86/10-animals-classification";
+    final headers = {
+      "Accept": "application/json",
+      "Authorization": "Bearer $API_TOKEN",
+    };
+
+    final response =
+            await http.post(Uri.parse(API_URL), body: File(filepath).readAsBytesSync(), headers: headers);
+    if (response.statusCode != 200) {
+      throw Exception('${response.statusCode}: ${response.reasonPhrase ?? ""}');
+    }
+
+    for(Map<String, dynamic> result in jsonDecode(response.body)) {
+      return result['label'];
+    }
+    return 'Did not get an answer from AI';
+  }
 }

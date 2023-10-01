@@ -1,0 +1,1 @@
+const List<String> categories = <String>['Cat', 'Dog', 'Boar', 'Deer', 'Bird', 'Snake', 'Cow', 'Hamster', 'Other'];
